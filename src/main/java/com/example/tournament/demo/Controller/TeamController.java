@@ -1,7 +1,5 @@
 package com.example.tournament.demo.Controller;
 import com.example.tournament.demo.DTO.TeamDTO;
-import com.example.tournament.demo.Model.Team.Team;
-import com.example.tournament.demo.Repository.TeamRepository.TeamRepository;
 import com.example.tournament.demo.Service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

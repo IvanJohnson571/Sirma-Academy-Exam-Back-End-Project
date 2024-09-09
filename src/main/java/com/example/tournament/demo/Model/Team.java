@@ -1,4 +1,4 @@
-package com.example.tournament.demo.Model.Team;
+package com.example.tournament.demo.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

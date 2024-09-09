@@ -1,8 +1,8 @@
 package com.example.tournament.demo.Config;
 
-import com.example.tournament.demo.Model.Team.Team;
-import com.example.tournament.demo.Repository.TeamRepository.TeamRepository;
-import com.example.tournament.demo.Service.CsvReaderService.CsvReaderService;
+import com.example.tournament.demo.Model.Team;
+import com.example.tournament.demo.Repository.TeamRepository;
+import com.example.tournament.demo.Service.CsvReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
