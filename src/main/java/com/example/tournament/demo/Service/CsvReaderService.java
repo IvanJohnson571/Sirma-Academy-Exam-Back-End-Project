@@ -2,7 +2,9 @@ package com.example.tournament.demo.Service;
 
 import com.example.tournament.demo.Model.Match;
 import com.example.tournament.demo.Model.Player;
+import com.example.tournament.demo.Model.Records;
 import com.example.tournament.demo.Model.Team;
+import com.example.tournament.demo.Util.CsvHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -75,6 +77,32 @@ public class CsvReaderService {
         }
 
         return players;
+    }
+
+    public List<Records> readRecordsCsv(String filePath) {
+        List<Records> records = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            br.readLine(); // Пропускаме заглавния ред
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+
+                // Обработка на "NULL" стойности
+                Long id = CsvHelper.parseLongOrNull(values[0]);
+                Long playerId = CsvHelper.parseLongOrNull(values[1]);
+                Long matchId = CsvHelper.parseLongOrNull(values[2]);
+                Integer fromMinutes = CsvHelper.parseIntOrNull(values[3]);
+                Integer toMinutes = CsvHelper.parseIntOrNull(values[4]);
+
+                Records record = new Records(id, playerId, matchId, fromMinutes, toMinutes);
+                records.add(record);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return records;
     }
 
 }
