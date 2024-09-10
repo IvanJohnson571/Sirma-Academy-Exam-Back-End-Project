@@ -53,18 +53,17 @@ public class FinalsController {
             String aTeamName = aTeam != null ? aTeam.getName() : "Unknown";
             String bTeamName = bTeam != null ? bTeam.getName() : "Unknown";
 
-            String score = match.getScore(); // Примерен резултат във формат "0(3)-0(0)"
+            String score = match.getScore();
             String winnerName = null;
 
             if (score != null && !score.isEmpty()) {
-                // Проверяваме дали има скоби (дузпи)
+
                 if (score.contains("(") && score.contains(")")) {
-                    // Обработка на резултатите с дузпи, например "0(3)-0(0)"
+
                     String[] scoreParts = score.split("-");
                     String aTeamScore = scoreParts[0].trim();
                     String bTeamScore = scoreParts[1].trim();
 
-                    // Извличаме числата в скобите
                     int aPenalties = extractScoreInBrackets(aTeamScore);
                     int bPenalties = extractScoreInBrackets(bTeamScore);
 
@@ -74,8 +73,9 @@ public class FinalsController {
                         winnerName = bTeamName;
                     }
                 } else {
-                    // Стандартна обработка на резултата без дузпи
+
                     String[] scoreParts = score.split("-");
+
                     if (scoreParts.length == 2) {
                         try {
                             int aScore = Integer.parseInt(scoreParts[0].trim());
@@ -83,14 +83,19 @@ public class FinalsController {
 
                             if (aScore > bScore) {
                                 winnerName = aTeamName;
+
                             } else if (bScore > aScore) {
                                 winnerName = bTeamName;
+
                             }
+
                         } catch (NumberFormatException e) {
                             winnerName = "Invalid score format";
+
                         }
                     } else {
                         winnerName = "Invalid score format";
+
                     }
                 }
             }
@@ -112,7 +117,6 @@ public class FinalsController {
         return finalsDTOList;
     }
 
-    // Метод за извличане на резултата в скобите
     private int extractScoreInBrackets(String score) {
         String regex = "\\((\\d+)\\)";
         Pattern pattern = Pattern.compile(regex);
@@ -121,6 +125,6 @@ public class FinalsController {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         }
-        return 0; // В случай че няма скоби или резултатът е невалиден
+        return 0;
     }
 }

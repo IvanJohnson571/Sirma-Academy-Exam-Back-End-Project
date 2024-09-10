@@ -1,5 +1,4 @@
 package com.example.tournament.demo.Model;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -51,8 +50,6 @@ public class Match {
     private Long bTeamId;
     private String date;
     private String score;
-
-    // Getters and Setters
 
     public Match() {}
 

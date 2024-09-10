@@ -9,7 +9,7 @@ public class FinalsDTO {
     private String bTeamName;
     private String date;
     private String score;
-    private String winnerName; // Placeholder за по-късна логика
+    private String winnerName;
 
     public FinalsDTO(Long id, Long aTeamId, String aTeamName, Long bTeamId, String bTeamName, String date, String score, String winnerName) {
         this.id = id;
@@ -22,7 +22,6 @@ public class FinalsDTO {
         this.winnerName = winnerName;
     }
 
-    // Getters и Setters
     public Long getId() {
         return id;
     }

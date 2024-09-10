@@ -20,16 +20,15 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Четене на данни от CSV файла
+
         List<Team> teams = csvReaderService.readTeamsCsv("src/main/resources/csv_files/teams.csv");
 
-        // Записване на отборите в H2 базата данни
         for (Team team : teams) {
             teamRepository.save(team);
         }
 
-        // Потвърждение в конзолата
         System.out.println("Teams have been initialized in the database!");
+
     }
 
 }

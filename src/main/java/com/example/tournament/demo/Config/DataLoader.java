@@ -26,7 +26,6 @@ public class DataLoader implements CommandLineRunner {
         String filePath = "src/main/resources/csv_files/matches.csv";
         List<Match> matches = csvReaderService.readMatchesCsv(filePath);
         matchRepository.saveAll(matches);
-        // Потвърждение в конзолата
         System.out.println("Matches have been initialized in the database!");
     }
 }

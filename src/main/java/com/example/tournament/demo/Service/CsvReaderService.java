@@ -21,9 +21,9 @@ public class CsvReaderService {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine(); // Пропускаме заглавния ред
+            br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(","); // Разделяме данните по запетая
+                String[] values = line.split(",");
                 Team team = new Team(Long.parseLong(values[0]), values[1], values[2], values[3]);
                 teams.add(team);
             }
@@ -34,15 +34,14 @@ public class CsvReaderService {
         return teams;
     }
 
-    // Нов метод за четене на мачове
     public List<Match> readMatchesCsv(String filePath) {
         List<Match> matches = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine(); // Пропускаме заглавния ред
+            br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(","); // Разделяме данните по запетая
+                String[] values = line.split(",");
                 Match match = new Match(Long.parseLong(values[0]), Long.parseLong(values[1]),
                         Long.parseLong(values[2]), values[3], values[4]);
                 matches.add(match);
@@ -54,21 +53,20 @@ public class CsvReaderService {
         return matches;
     }
 
-    // Метод за четене на играчи
     public List<Player> readPlayersCsv(String filePath) {
         List<Player> players = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine(); // Пропускаме заглавния ред
+            br.readLine();
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(","); // Разделяме данните по запетая
+                String[] values = line.split(",");
                 Player player = new Player(
-                        Long.parseLong(values[0]), // ID
-                        Integer.parseInt(values[1]), // TeamNumber
-                        values[2], // Position
-                        values[3], // FullName
-                        Long.parseLong(values[4]) // TeamID
+                        Long.parseLong(values[0]),
+                        Integer.parseInt(values[1]),
+                        values[2],
+                        values[3],
+                        Long.parseLong(values[4])
                 );
                 players.add(player);
             }
@@ -84,11 +82,11 @@ public class CsvReaderService {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            br.readLine(); // Пропускаме заглавния ред
+            br.readLine();
             while ((line = br.readLine()) != null) {
+
                 String[] values = line.split(",");
 
-                // Обработка на "NULL" стойности
                 Long id = CsvHelper.parseLongOrNull(values[0]);
                 Long playerId = CsvHelper.parseLongOrNull(values[1]);
                 Long matchId = CsvHelper.parseLongOrNull(values[2]);
@@ -101,7 +99,6 @@ public class CsvReaderService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return records;
     }
 

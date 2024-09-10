@@ -16,7 +16,6 @@ public class TeamController {
     @Autowired
     private TeamService teamService;
 
-    // GET метод за извличане на всички отбори
     @GetMapping("/teams")
     public List<TeamDTO> getAllTeams() {
         return teamService.getAllTeams();

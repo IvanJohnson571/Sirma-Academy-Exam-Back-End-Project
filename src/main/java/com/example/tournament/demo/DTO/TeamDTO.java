@@ -1,6 +1,4 @@
 package com.example.tournament.demo.DTO;
-
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,8 +15,6 @@ public class TeamDTO {
 
     @NotBlank(message = "Group name cannot be blank")
     private String groupName;
-
-    // Getter-и и Setter-и
 
     public Long getId() {
         return id;

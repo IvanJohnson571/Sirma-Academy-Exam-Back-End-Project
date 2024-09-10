@@ -7,7 +7,6 @@ public class PlayerDTO {
     private String fullName;
     private Long teamId;
 
-    // Конструктори
     public PlayerDTO() {}
 
     public PlayerDTO(Long id, int teamNumber, String position, String fullName, Long teamId) {
@@ -18,7 +17,6 @@ public class PlayerDTO {
         this.teamId = teamId;
     }
 
-    // Getters и Setters
     public Long getId() {
         return id;
     }

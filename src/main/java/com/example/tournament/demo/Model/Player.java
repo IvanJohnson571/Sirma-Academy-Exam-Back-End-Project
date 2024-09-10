@@ -12,7 +12,6 @@ public class Player {
     private String fullName;
     private Long teamId;
 
-    // Конструктори
     public Player() {}
 
     public Player(Long id, int teamNumber, String position, String fullName, Long teamId) {
@@ -23,7 +22,6 @@ public class Player {
         this.teamId = teamId;
     }
 
-    // Getters и Setters
     public Long getId() {
         return id;
     }

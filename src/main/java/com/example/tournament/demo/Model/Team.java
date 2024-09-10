@@ -1,5 +1,4 @@
 package com.example.tournament.demo.Model;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -10,7 +9,7 @@ public class Team {
     private Long id;
     private String name;
     private String managerFullName;
-    private String groupName;  // Променяме 'group' на 'groupName', защото 'group' е запазена дума в SQL
+    private String groupName;
 
     public Team() {
     }
@@ -22,7 +21,6 @@ public class Team {
         this.groupName = groupName;
     }
 
-    // Getter-и и Setter-и
     public Long getId() {
         return id;
     }
@@ -56,4 +54,3 @@ public class Team {
     }
 
 }
-

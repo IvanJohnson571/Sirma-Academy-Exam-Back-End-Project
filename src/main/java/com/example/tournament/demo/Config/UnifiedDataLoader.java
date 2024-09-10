@@ -35,14 +35,12 @@ public class UnifiedDataLoader implements CommandLineRunner {
         //loadMatches();
     }
 
-    // Зареждане на играчи
     private void loadPlayers() {
         String playersFilePath = "src/main/resources/csv_files/players.csv";
         List<Player> players = csvReaderService.readPlayersCsv(playersFilePath);
         playerRepository.saveAll(players);
     }
 
-    // Зареждане на records
     private void loadRecords() {
         String recordsFilePath = "src/main/resources/csv_files/records.csv";
         List<Records> records = csvReaderService.readRecordsCsv(recordsFilePath);

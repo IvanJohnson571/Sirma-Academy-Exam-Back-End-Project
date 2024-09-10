@@ -1,5 +1,4 @@
 package com.example.tournament.demo.Model;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +26,6 @@ public class Records {
     public Records() {
     }
 
-    // Getters и Setters
     public Long getId() {
         return id;
     }
