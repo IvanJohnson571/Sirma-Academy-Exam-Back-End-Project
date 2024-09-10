@@ -4,7 +4,10 @@ import com.example.tournament.demo.Model.Player;
 import com.example.tournament.demo.Repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,5 +33,17 @@ public class PlayerService {
                 player.getFullName(),
                 player.getTeamId()
         );
+    }
+
+    // Метод за връщане на играчи от два отбора
+    public Map<String, List<Player>> getPlayersByTwoTeams(Long teamAId, Long teamBId) {
+        List<Player> teamAPlayers = playerRepository.findByTeamId(teamAId);
+        List<Player> teamBPlayers = playerRepository.findByTeamId(teamBId);
+
+        Map<String, List<Player>> teamsPlayers = new HashMap<>();
+        teamsPlayers.put("TeamAPlayers", teamAPlayers);
+        teamsPlayers.put("TeamBPlayers", teamBPlayers);
+
+        return teamsPlayers;
     }
 }

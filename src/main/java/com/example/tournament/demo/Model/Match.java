@@ -64,5 +64,20 @@ public class Match {
         this.score = score;
     }
 
-    // Getters and Setters here
+    public Long getATeamId() {
+        return aTeamId;
+    }
+
+    public void setATeamId(Long aTeamId) {
+        this.aTeamId = aTeamId;
+    }
+
+    public Long getBTeamId() {
+        return bTeamId;
+    }
+
+    public void setBTeamId(Long bTeamId) {
+        this.bTeamId = bTeamId;
+    }
+
 }
