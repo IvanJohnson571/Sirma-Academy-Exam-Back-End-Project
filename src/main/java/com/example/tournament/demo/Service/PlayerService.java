@@ -190,12 +190,21 @@ public class PlayerService {
         List<PlayerDurationResponse> top10Players = getTop10PlayerDurations();
 
         for (int i = 0; i < top10Players.size(); i++) {
+
             for (int j = i + 1; j < top10Players.size(); j++) {
+
                 Player playerA = top10Players.get(i).getPlayer();
                 Player playerB = top10Players.get(j).getPlayer();
 
+                List<MatchTogetherInfo> matchesAndTime = getMatchesAndTimePlayedTogether(playerA.getId(), playerB.getId());
+
                 if (havePlayedTogetherInAllMatches(playerA.getId(), playerB.getId())) {
-                    return List.of(new PlayerPair(playerA, playerB));
+
+                    PlayerPair playerPair = new PlayerPair(playerA, playerB);
+                    playerPair.setMatchesTogether(matchesAndTime);
+
+                    return List.of(playerPair);
+
                 }
             }
         }
@@ -217,6 +226,39 @@ public class PlayerService {
             }
         }
         return true;
+    }
+
+    // Matches played together
+    public List<MatchTogetherInfo> getMatchesAndTimePlayedTogether(Long playerAId, Long playerBId) {
+        List<Records> playerARecords = recordRepository.findByPlayerId(playerAId);
+        List<Records> playerBRecords = recordRepository.findByPlayerId(playerBId);
+
+        List<MatchTogetherInfo> matchesTogether = new ArrayList<>();
+
+        for (Records recordA : playerARecords) {
+            playerBRecords.stream()
+                    .filter(recordB -> recordB.getMatchId().equals(recordA.getMatchId()) && isTimeOverlapping(recordA, recordB))
+                    .forEach(recordB -> {
+                        int togetherTime = getTogetherTime(recordA, recordB);
+                        matchesTogether.add(new MatchTogetherInfo(recordA.getMatchId(), togetherTime));
+                    });
+        }
+
+        return matchesTogether;
+    }
+
+    // Duration per match
+    private int getTogetherTime(Records recordA, Records recordB) {
+        int fromA = recordA.getFromMinutes();
+        int toA = (recordA.getToMinutes() != null) ? recordA.getToMinutes() : 90;
+
+        int fromB = recordB.getFromMinutes();
+        int toB = (recordB.getToMinutes() != null) ? recordB.getToMinutes() : 90;
+
+        int startTogether = Math.max(fromA, fromB);
+        int endTogether = Math.min(toA, toB);
+
+        return endTogether - startTogether;
     }
 
     private boolean isTimeOverlapping(Records recordA, Records recordB) {
