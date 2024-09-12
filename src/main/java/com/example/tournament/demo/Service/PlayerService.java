@@ -271,4 +271,40 @@ public class PlayerService {
         return fromA < toB && fromB < toA;
     }
 
+    public PlayerDTO getPlayerById(Long id) {
+        Player player = playerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Player not found for id: " + id));
+        return convertToDTO(player);
+    }
+
+    public PlayerDTO createPlayer(PlayerDTO playerDTO) {
+        Player player = convertToEntity(playerDTO);
+        playerRepository.save(player);
+        return convertToDTO(player);
+    }
+
+    public PlayerDTO updatePlayer(Long id, PlayerDTO playerDTO) {
+        Player player = playerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Player not found for id: " + id));
+        player.setTeamNumber(playerDTO.getTeamNumber());
+        player.setPosition(playerDTO.getPosition());
+        player.setFullName(playerDTO.getFullName());
+        player.setTeamId(playerDTO.getTeamId());
+        playerRepository.save(player);
+        return convertToDTO(player);
+    }
+
+    public void deletePlayer(Long id) {
+        Player player = playerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Player not found for id: " + id));
+        playerRepository.delete(player);
+    }
+
+    private Player convertToEntity(PlayerDTO playerDTO) {
+        Player player = new Player();
+        player.setId(playerDTO.getId());
+        player.setTeamNumber(playerDTO.getTeamNumber());
+        player.setPosition(playerDTO.getPosition());
+        player.setFullName(playerDTO.getFullName());
+        player.setTeamId(playerDTO.getTeamId());
+        return player;
+    }
+
 }

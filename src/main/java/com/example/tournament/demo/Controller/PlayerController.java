@@ -2,11 +2,12 @@ package com.example.tournament.demo.Controller;
 import com.example.tournament.demo.DTO.PlayerDTO;
 import com.example.tournament.demo.Model.*;
 import com.example.tournament.demo.Service.PlayerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +59,29 @@ public class PlayerController {
     @GetMapping("/players-played-together")
     public List<PlayerPair> getPlayersPlayedTogether() {
         return playerService.findPlayersWhoPlayedTogether();
+    }
+
+    // --- CRUD SECTION ---
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable Long id) {
+        return ResponseEntity.ok(playerService.getPlayerById(id));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<PlayerDTO> createPlayer(@Valid @RequestBody PlayerDTO playerDTO) {
+        return new ResponseEntity<>(playerService.createPlayer(playerDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable Long id, @Valid @RequestBody PlayerDTO playerDTO) {
+        return ResponseEntity.ok(playerService.updatePlayer(id, playerDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
+        playerService.deletePlayer(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

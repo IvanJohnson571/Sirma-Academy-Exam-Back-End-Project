@@ -1,10 +1,19 @@
 package com.example.tournament.demo.DTO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class PlayerDTO {
+
     private Long id;
+    @Positive(message = "Team number must be positive")
     private int teamNumber;
+    @NotBlank(message = "Position cannot be blank")
     private String position;
+    @NotBlank(message = "Full name cannot be blank")
     private String fullName;
+    @NotNull(message = "Team ID cannot be null")
     private Long teamId;
 
     public PlayerDTO() {}
