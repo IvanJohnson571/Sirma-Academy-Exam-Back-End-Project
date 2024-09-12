@@ -9,7 +9,6 @@ public class TeamResponse {
         this.name = name;
     }
 
-    // Getters и Setters
     public Long getId() {
         return id;
     }

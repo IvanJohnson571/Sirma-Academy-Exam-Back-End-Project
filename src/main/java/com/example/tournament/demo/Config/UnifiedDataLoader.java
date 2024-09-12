@@ -47,9 +47,8 @@ public class UnifiedDataLoader implements CommandLineRunner {
         recordsRepository.saveAll(records);
     }
 
-    // Зареждане на мачове
 //    private void loadMatches() {
-//        String matchesFilePath = "src/main/resources/csv_files/matches.csv"; // Замени с реалния път
+//        String matchesFilePath = "src/main/resources/csv_files/matches.csv";
 //        List<Match> matches = csvReaderService.readMatchesCsv(matchesFilePath);
 //        matchRepository.saveAll(matches);
 //    }

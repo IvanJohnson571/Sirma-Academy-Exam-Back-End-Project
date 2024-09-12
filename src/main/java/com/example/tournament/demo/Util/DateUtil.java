@@ -16,7 +16,7 @@ public class DateUtil {
         formatters.add(DateTimeFormatter.ofPattern("MMMM d, yyyy")); // September 12, 2024
         formatters.add(DateTimeFormatter.ofPattern("d MMM yyyy")); // 12 Sep 2024
         formatters.add(DateTimeFormatter.ofPattern("EEE, MMM d, yyyy")); // Thu, Sep 12, 2024
-        formatters.add(DateTimeFormatter.ofPattern("M/d/yyyy")); // 7/14/2024 (нов формат)
+        formatters.add(DateTimeFormatter.ofPattern("M/d/yyyy")); // 7/14/2024
 
         for (DateTimeFormatter formatter : formatters) {
             try {

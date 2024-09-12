@@ -65,10 +65,10 @@ public class TeamService {
     }
 
     public GroupDetailsResponse getGroupDetails(List<TeamPoints> teamsInGroup) {
-        // Вземаме само мачовете от първата фаза (първите 36 мача)
+
         List<Match> matchesInGroup = matchRepository.findAll().stream()
-                .filter(match -> match.getId() <= 36) // Филтрираме мачовете до 36-ти
-                .filter(match -> isMatchInGroup(match, teamsInGroup)) // Проверяваме дали мачът е между отбори в групата
+                .filter(match -> match.getId() <= 36)
+                .filter(match -> isMatchInGroup(match, teamsInGroup))
                 .collect(Collectors.toList());
 
         List<MatchResponse> finalMatchesFromTheGroup = new ArrayList<>();
@@ -94,21 +94,19 @@ public class TeamService {
                     getTeamNameById(teamsInGroup, match.getBTeamId()),
                     match.getDate(), result, winnerId, winnerName));
 
-            // Обновяваме точките и головия баланс за отборите
             updateTeamPoints(teamsInGroup, match.getATeamId(), aTeamScore, bTeamScore, aTeamScore > bTeamScore);
             updateTeamPoints(teamsInGroup, match.getBTeamId(), bTeamScore, aTeamScore, bTeamScore > aTeamScore);
         }
 
-        // Сортиране по точки и голов баланс
         List<TeamPoints> sortedTeams = teamsInGroup.stream()
                 .sorted(Comparator.comparingInt(TeamPoints::getPoints)
                         .thenComparingInt(TeamPoints::getBalance).reversed())
                 .collect(Collectors.toList());
 
-        // Взимаме топ 2 отбора
         List<TeamPoints> topTwoTeams = sortedTeams.stream().limit(2).collect(Collectors.toList());
 
         return new GroupDetailsResponse(topTwoTeams, finalMatchesFromTheGroup);
+
     }
 
     private boolean isMatchInGroup(Match match, List<TeamPoints> teamsInGroup) {
