@@ -38,13 +38,58 @@ public class PlayerService {
         );
     }
 
-    public Map<String, List<Player>> getPlayersByTwoTeams(Long teamAId, Long teamBId) {
+    public Map<String, List<Player>> getPlayersByTwoTeamsRaw(Long teamAId, Long teamBId) {
         List<Player> teamAPlayers = playerRepository.findByTeamId(teamAId);
         List<Player> teamBPlayers = playerRepository.findByTeamId(teamBId);
 
         Map<String, List<Player>> teamsPlayers = new HashMap<>();
         teamsPlayers.put("TeamAPlayers", teamAPlayers);
         teamsPlayers.put("TeamBPlayers", teamBPlayers);
+
+        return teamsPlayers;
+
+    }
+
+    public Map<String, List<Player>> getPlayersByTwoTeams(Long teamAId, Long teamBId) {
+
+        List<Player> teamAPlayers = playerRepository.findByTeamId(teamAId);
+        List<Player> teamBPlayers = playerRepository.findByTeamId(teamBId);
+
+        List<Long> teamAPlayerIds = teamAPlayers.stream()
+                .map(Player::getId)
+                .collect(Collectors.toList());
+        List<Records> teamARecords = recordRepository.findByPlayerIdInAndFromMinutes(teamAPlayerIds, 0);
+        List<Long> startingPlayerIdsA = teamARecords.stream()
+                .map(Records::getPlayerId)
+                .collect(Collectors.toList());
+
+        List<Player> startingAPlayers = teamAPlayers.stream()
+                .filter(player -> startingPlayerIdsA.contains(player.getId()))
+                .collect(Collectors.toList());
+        List<Player> reservesAPlayers = teamAPlayers.stream()
+                .filter(player -> !startingPlayerIdsA.contains(player.getId()))
+                .collect(Collectors.toList());
+
+        List<Long> teamBPlayerIds = teamBPlayers.stream()
+                .map(Player::getId)
+                .collect(Collectors.toList());
+        List<Records> teamBRecords = recordRepository.findByPlayerIdInAndFromMinutes(teamBPlayerIds, 0);
+        List<Long> startingPlayerIdsB = teamBRecords.stream()
+                .map(Records::getPlayerId)
+                .collect(Collectors.toList());
+
+        List<Player> startingBPlayers = teamBPlayers.stream()
+                .filter(player -> startingPlayerIdsB.contains(player.getId()))
+                .collect(Collectors.toList());
+        List<Player> reservesBPlayers = teamBPlayers.stream()
+                .filter(player -> !startingPlayerIdsB.contains(player.getId()))
+                .collect(Collectors.toList());
+
+        Map<String, List<Player>> teamsPlayers = new HashMap<>();
+        teamsPlayers.put("TeamAPlayers", startingAPlayers);
+        teamsPlayers.put("TeamAPlayersSubstitutes", reservesAPlayers);
+        teamsPlayers.put("TeamBPlayers", startingBPlayers);
+        teamsPlayers.put("TeamBPlayersSubstitutes", reservesBPlayers);
 
         return teamsPlayers;
 

@@ -6,5 +6,9 @@ import java.util.List;
 
 @Repository
 public interface RecordsRepository extends JpaRepository<Records, Long> {
+
     List<Records> findByPlayerId(Long playerId);
+
+    List<Records> findByPlayerIdInAndFromMinutes(List<Long> playerIds, int fromMinutes);
+
 }

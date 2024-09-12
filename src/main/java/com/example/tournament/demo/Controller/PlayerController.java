@@ -26,9 +26,16 @@ public class PlayerController {
         return playerService.getAllPlayers();
     }
 
-    @GetMapping("/teams/{teamAId}/{teamBId}")
+    //The proper way to show two teams with substitutes.
+    @GetMapping("/teams/detailed/{teamAId}/{teamBId}")
     public Map<String, List<Player>> getPlayersByTwoTeams(@PathVariable Long teamAId, @PathVariable Long teamBId) {
         return playerService.getPlayersByTwoTeams(teamAId, teamBId);
+    }
+
+    //The raw way to show two teams without separation on substitutes.
+    @GetMapping("/teams/{teamAId}/{teamBId}")
+    public Map<String, List<Player>> getPlayersByTwoTeamsRaw(@PathVariable Long teamAId, @PathVariable Long teamBId) {
+        return playerService.getPlayersByTwoTeamsRaw(teamAId, teamBId);
     }
 
     @GetMapping("/played-together-longest")
