@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.text.ParseException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +32,10 @@ public class MatchController {
     public ResponseEntity<Match> createMatch(@RequestBody MatchRequest matchRequest) {
         try {
             Match match = new Match();
-            match.setATeamId(matchRequest.getATeamId()); // Използваме setATeamId
-            match.setBTeamId(matchRequest.getBTeamId()); // Използваме setBTeamId
-            DateUtil.parseDate(matchRequest.getDate());  // Валидация на формата на датата
-            match.setDate(matchRequest.getDate());       // Датата остава String
+            match.setATeamId(matchRequest.getATeamId());
+            match.setBTeamId(matchRequest.getBTeamId());
+            DateUtil.parseDate(matchRequest.getDate());
+            match.setDate(matchRequest.getDate());
             match.setScore(matchRequest.getScore());
             matchRepository.save(match);
             return new ResponseEntity<>(match, HttpStatus.CREATED);
@@ -65,10 +62,10 @@ public class MatchController {
         Optional<Match> matchOptional = matchRepository.findById(id);
         if (matchOptional.isPresent()) {
             Match match = matchOptional.get();
-            match.setATeamId(matchRequest.getATeamId()); // Използваме setATeamId
-            match.setBTeamId(matchRequest.getBTeamId()); // Използваме setBTeamId
-            DateUtil.parseDate(matchRequest.getDate());  // Валидация на датата
-            match.setDate(matchRequest.getDate());       // Датата остава String
+            match.setATeamId(matchRequest.getATeamId());
+            match.setBTeamId(matchRequest.getBTeamId());
+            DateUtil.parseDate(matchRequest.getDate());
+            match.setDate(matchRequest.getDate());
             match.setScore(matchRequest.getScore());
             matchRepository.save(match);
             return new ResponseEntity<>(match, HttpStatus.OK);

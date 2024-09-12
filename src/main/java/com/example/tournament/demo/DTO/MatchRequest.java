@@ -1,12 +1,18 @@
 package com.example.tournament.demo.DTO;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MatchRequest {
+
+    @JsonProperty("aTeamId")
     private Long aTeamId;
+
+    @JsonProperty("bTeamId")
     private Long bTeamId;
+
     private String date;
     private String score;
 
-    // Гетъри и сетъри
     public Long getATeamId() {
         return aTeamId;
     }
@@ -39,5 +45,3 @@ public class MatchRequest {
         this.score = score;
     }
 }
-
-
