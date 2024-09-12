@@ -4,6 +4,7 @@ import com.example.tournament.demo.Model.GroupDetailsResponse;
 import com.example.tournament.demo.Model.GroupStageResponse;
 import com.example.tournament.demo.Model.TeamPoints;
 import com.example.tournament.demo.Service.TeamService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,29 @@ public class TeamController {
     public ResponseEntity<GroupDetailsResponse> getGroupDetails(@RequestBody List<TeamPoints> teamsInGroup) {
         GroupDetailsResponse response = teamService.getGroupDetails(teamsInGroup);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    //---CRUD-SECTION--
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TeamDTO> getTeamById(@PathVariable Long id) {
+        return ResponseEntity.ok(teamService.getTeamById(id));
+    }
+
+    @PostMapping("")
+    public ResponseEntity<TeamDTO> createTeam(@Valid @RequestBody TeamDTO teamDTO) {
+        return new ResponseEntity<>(teamService.createTeam(teamDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TeamDTO> updateTeam(@PathVariable Long id, @Valid @RequestBody TeamDTO teamDTO) {
+        return ResponseEntity.ok(teamService.updateTeam(id, teamDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable Long id) {
+        teamService.deleteTeam(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

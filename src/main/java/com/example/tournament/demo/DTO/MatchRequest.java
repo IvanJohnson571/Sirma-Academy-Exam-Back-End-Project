@@ -6,10 +6,8 @@ public class MatchRequest {
 
     @JsonProperty("aTeamId")
     private Long aTeamId;
-
     @JsonProperty("bTeamId")
     private Long bTeamId;
-
     private String date;
     private String score;
 

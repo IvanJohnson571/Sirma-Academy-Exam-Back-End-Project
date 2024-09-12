@@ -3,6 +3,7 @@ import com.example.tournament.demo.DTO.TeamDTO;
 import com.example.tournament.demo.Model.*;
 import com.example.tournament.demo.Repository.MatchRepository;
 import com.example.tournament.demo.Repository.TeamRepository;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -137,6 +138,40 @@ public class TeamService {
                 break;
             }
         }
+    }
+
+    public TeamDTO getTeamById(Long id) {
+        Team team = teamRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Team not found for id: " + id));
+        return convertToDTO(team);
+    }
+
+    public TeamDTO createTeam(@Valid TeamDTO teamDTO) {
+        Team team = convertToEntity(teamDTO);
+        teamRepository.save(team);
+        return convertToDTO(team);
+    }
+
+    public TeamDTO updateTeam(Long id, @Valid TeamDTO teamDTO) {
+        Team team = teamRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Team not found for id: " + id));
+        team.setName(teamDTO.getName());
+        team.setManagerFullName(teamDTO.getManagerFullName());
+        team.setGroupName(teamDTO.getGroupName());
+        teamRepository.save(team);
+        return convertToDTO(team);
+    }
+
+    public void deleteTeam(Long id) {
+        Team team = teamRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Team not found for id: " + id));
+        teamRepository.delete(team);
+    }
+
+    private Team convertToEntity(TeamDTO teamDTO) {
+        Team team = new Team();
+        team.setId(teamDTO.getId());
+        team.setName(teamDTO.getName());
+        team.setManagerFullName(teamDTO.getManagerFullName());
+        team.setGroupName(teamDTO.getGroupName());
+        return team;
     }
 
 }

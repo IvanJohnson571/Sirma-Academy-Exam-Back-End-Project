@@ -18,6 +18,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query("SELECT t FROM Team t WHERE t.id = 51")
     List<Team> findFinals();
 
-    // Метод за извличане на отборите по име на групата
     List<Team> findByGroupName(String groupName);
+
 }
