@@ -3,7 +3,7 @@
 Spring Application. 
 
 The main task of this project is to find two players played the most of all players.
-and secondary finding the overall time they played together. [Link](http://localhost:8080/api/players/players-played-together)
+and secondary finding the overall time they played together. [api/players/players-played-together](http://localhost:8080/api/players/players-played-together)
 
 CRUD operations included.
 
